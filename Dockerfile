@@ -12,7 +12,7 @@ ENV PATH=/home/platformio/.platformio/penv/bin:$PATH
 
 # Clone MarlinFirmware repository, checkout latest release tag
 WORKDIR /home/platformio
-RUN git clone https://github.com/MarlinFirmware/Marlin.git \
+RUN git clone -b bugfix-2.1.x https://github.com/MarlinFirmware/Marlin.git \
   && cd Marlin/ \
   && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 
