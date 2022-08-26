@@ -1,0 +1,40 @@
+# This a Github Action for automatically building Marlin Firmware when you push a commit to master.
+# Base on https://github.com/tinuva/b1seplus-marlin-build. Thanks to tinuva.
+
+name: Build Marlin Firmware
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'Firmware/Configuration/**.h'
+      - '.github/workflows/github-action.yml'
+
+jobs:
+  build_and_push:
+    name: Build and push firmware
+    runs-on: ubuntu-latest
+    env:
+      BOARD: BOARD_BTT_SKR_MINI_E3_V3_0
+      USE_BRANCH: bugfix-2.1.x 
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Compile firmware
+        run: |
+          docker run \
+            -u root:root \
+            -e BOARD \
+            -e USE_REPO \
+            -v $(pwd)/Firmware/Builds:/home/platformio/build \
+            -v $(pwd)/Firmware/Configuration:/home/platformio/CustomConfiguration \
+             ghcr.io/elraro/marlin-build:latest
+
+      - name: Push firmware
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Compiled firmware"
+          git push
