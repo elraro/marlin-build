@@ -16,7 +16,7 @@ jobs:
     name: Build and push firmware
     runs-on: ubuntu-latest
     env:
-      BOARD: BOARD_BTT_SKR_MINI_E3_V3_0
+      BOARD: STM32G0B1RE_btt
       USE_BRANCH: bugfix-2.1.x 
     steps:
       - name: Check out repo
