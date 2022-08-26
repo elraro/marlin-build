@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: starwarssounds_bot
+      IMAGE_NAME: marlin-build
     steps:
       -
         name: Checkout
