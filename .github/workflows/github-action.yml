@@ -20,7 +20,7 @@ jobs:
       USE_BRANCH: bugfix-2.1.x 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Compile firmware
         run: |
           docker run \
